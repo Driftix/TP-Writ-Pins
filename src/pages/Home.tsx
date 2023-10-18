@@ -1,7 +1,9 @@
-import MessageListItem from '../components/MessageListItem';
-import { useState } from 'react';
-import { Message, getMessages } from '../data/messages';
+import React, { useState } from 'react';
+import PinsListItem from '../components/PinListItem';
+import PinForm from '../components/PinForm';
+import { Pin, addPin, getPins } from '../data/pins';
 import {
+  IonCard,
   IonContent,
   IonHeader,
   IonList,
@@ -15,13 +17,17 @@ import {
 import './Home.css';
 
 const Home: React.FC = () => {
-
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [pins, setPins] = useState<Pin[]>([]);
 
   useIonViewWillEnter(() => {
-    const msgs = getMessages();
-    setMessages(msgs);
+    const pns = getPins();
+    setPins(pns);
   });
+
+  const handlePinAdd = (pin: Pin) => {
+    setPins([...pins, pin]);
+    addPin(pin);
+  };
 
   const refresh = (e: CustomEvent) => {
     setTimeout(() => {
@@ -33,7 +39,7 @@ const Home: React.FC = () => {
     <IonPage id="home-page">
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Inbox</IonTitle>
+          <IonTitle>My Pins</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
@@ -44,14 +50,15 @@ const Home: React.FC = () => {
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">
-              Inbox
+              My Pins
             </IonTitle>
           </IonToolbar>
         </IonHeader>
 
         <IonList>
-          {messages.map(m => <MessageListItem key={m.id} message={m} />)}
+          {pins.map(p => <PinsListItem key={p.id} pin={p} />)}
         </IonList>
+          <PinForm pins={pins} onClick={handlePinAdd} />
       </IonContent>
     </IonPage>
   );

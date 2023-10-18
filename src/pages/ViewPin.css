@@ -12,7 +12,7 @@
   font-weight: 600;
 }
 
-#view-message-page ion-item .date {
+#view-message-page ion-item .tags {
   float: right;
   align-items: center;
   display: flex;
@@ -27,6 +27,7 @@
   font-size: 15px;
   margin-right: 12px;
   font-weight: normal;
+  text-align: center;
 }
 
 #view-message-page h1 {
@@ -37,4 +38,9 @@
 
 #view-message-page p {
   line-height: 22px;
+}
+
+#view-message-page ion-title{
+  text-align : center;
+  padding-top : 20px;
 }
